@@ -1,0 +1,61 @@
+/*
+Artist (ArtistID, Name)
+    PK: ArtistID
+*/
+CREATE TABLE artist (
+    artist_ID CHAR(9) PRIMARY KEY, 
+    artist_name VARCHAR(50)
+    );
+/*
+Album (AlbumID, Name, Artist, Duration, Genre, Release Date)
+    PK: AlbumID
+    FK: Artist reference Artist
+*/
+CREATE TABLE album (
+    album_ID CHAR(9) PRIMARY KEY,
+    album_name VARCHAR(50),
+    artist_name VARCHAR(50) REFERENCES artist, 
+    duration INTEGER, 
+    genre VARCHAR(50),
+    release_date DATE,
+    cover_art BLOB
+);
+/*
+User (Username, Password, FirstName, LastName)
+PK: Username
+*/
+CREATE TABLE library_user (
+    user_ID CHAR(9) PRIMARY KEY,
+    username VARCHAR(50),
+    pass_word VARCHAR(50),
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100)
+);
+
+/*
+Playlist (PlaylistID, Creator, Duration, Creation Date)
+PK: PlaylistID
+FK: Creator references User
+*/
+CREATE TABLE playlist (
+    playlist_ID CHAR(9) PRIMARY KEY,
+    user_name VARCHAR(50) REFERENCES library_user,
+    duration INTEGER,
+    creation_date DATE
+);
+/*
+Song (SongID, Name, Artist, Duration, Genre, Album, Playlist)
+    PK: SongID
+    FK: Artist references Artist, Album references Album, Playlist references Playlist
+*/
+CREATE TABLE song (
+    song_ID CHAR(9) PRIMARY KEY,
+    song_name VARCHAR(50),
+    artist_name CHAR(9) REFERENCES artist,
+    duration_sec INTEGER, 
+    genre VARCHAR(50), 
+    album_name VARCHAR(50) REFERENCES album,
+    playlist_name VARCHAR(50) REFERENCES playlist
+
+);
