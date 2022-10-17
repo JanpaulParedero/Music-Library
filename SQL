@@ -59,3 +59,18 @@ CREATE TABLE song (
     playlist_name VARCHAR(50) REFERENCES playlist
 
 );
+
+INSERT INTO api_album (genre, artist_id, name, duration_min, release_year) VALUES
+    ( 'Rock',	(SELECT id from api_artist WHERE name='The Beatles' ), 'Abbey Road', 47, 1969),
+    ( 'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder') ,'Songs In The Key Of Life' , 104, 1976),
+    ( 'Folk',   (SELECT id from api_artist WHERE name='Joni Mitchell'),	'Blue', 36,	1971),
+    ( 'Rock',	(SELECT id from api_artist WHERE name='The Beach Boys'), 'Pet Sounds',	36,	1966),
+    ( 'R&B',	(SELECT id from api_artist WHERE name='Marvin Gaye'),	'What''s Going On', 35, 1971);
+
+INSERT INTO api_song (name, duration_sec, genre, artist_id, album_id, playlist_id) VALUES
+    ('Come Together', 259,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road'), NULL),
+    ('Something',	  182,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road'), NULL),
+    ('Maxwell''s Silver Hammer'	, 207,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road'), NULL),
+    ('Oh! Darling',	207, 'Rock', (SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road'), NULL),
+    ('Octopus''s Garden', 170,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road'), NULL);
+    

@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from psycopg2 import apilevel
 
 urlpatterns = [
     path('admin/', admin.site.urls),
