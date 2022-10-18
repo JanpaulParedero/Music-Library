@@ -60,6 +60,13 @@ CREATE TABLE song (
 
 );
 
+INSERT INTO api_artist (name) VALUES
+    ('The Beatles'),
+    ('Stevie Wonder'),
+    ('Joni Mitchell'),
+    ('The Beach Boys'),
+    ('Marvin Gaye');
+
 INSERT INTO api_album (genre, artist_id, name, duration_min, release_year) VALUES
     ( 'Rock',	(SELECT id from api_artist WHERE name='The Beatles' ), 'Abbey Road', 47, 1969),
     ( 'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder') ,'Songs In The Key Of Life' , 104, 1976),
@@ -67,10 +74,80 @@ INSERT INTO api_album (genre, artist_id, name, duration_min, release_year) VALUE
     ( 'Rock',	(SELECT id from api_artist WHERE name='The Beach Boys'), 'Pet Sounds',	36,	1966),
     ( 'R&B',	(SELECT id from api_artist WHERE name='Marvin Gaye'),	'What''s Going On', 35, 1971);
 
-INSERT INTO api_song (name, duration_sec, genre, artist_id, album_id, playlist_id) VALUES
-    ('Come Together', 259,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road'), NULL),
-    ('Something',	  182,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road'), NULL),
-    ('Maxwell''s Silver Hammer'	, 207,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road'), NULL),
-    ('Oh! Darling',	207, 'Rock', (SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road'), NULL),
-    ('Octopus''s Garden', 170,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road'), NULL);
-    
+INSERT INTO api_song (name, duration_sec, genre, artist_id, album_id) VALUES
+    ('Come Together', 259,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road')),
+    ('Something',	  182,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road')),
+    ('Maxwell''s Silver Hammer'	, 207,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road')),
+    ('Oh! Darling',	207, 'Rock', (SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road')),
+    ('Octopus''s Garden', 170,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'), (SELECT id from api_album WHERE name='Abbey Road')),
+    ('I Want You (She''s So Heavy)'	,467,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+    ('Here Comes the Sun',	185,	'Rock', (SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+    ('Because',	165,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+    ('You Never Give Me Your Money',	242,	'Rock', (SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+    ('Sun King'	,146, 	'Rock', (SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+    ('Mean Mr. Mustard',	66	, 'Rock', (SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+    ('Polythene Pam'	,72,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+    ('She Came in Through the Bathroom Window'	,118,	'Rock', (SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+    ('Golden Slumbers', 91	,'Rock',	(SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+    ('Carry That Weight', 	96,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+    ('The End'	,141,	'Rock',	(SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+    ('Her Majesty'	,25,	'Rock',(SELECT id from api_artist WHERE name='The Beatles'),(SELECT id from api_album WHERE name='Abbey Road')),
+
+
+    ('Love''s In Need Of Love Today',	425 ,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Have A Talk With God',	162	 ,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Village Ghetto Land',	205	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Contusion'	,225,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),	
+    ('Sir Duke',	232	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('I Wish',	252	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Knocks Me Off My Feet', 	216	, 'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Pastime Paradise'	,207,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),	
+    ('Summer Soft',	254	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Ordinary Pain',	383	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Isn''t She Lovely', 394	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Joy Inside My Tears',	389	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Black Man',	509	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Ngiculela/Es Una Historia/I Am Singing', 	228	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('If It''s Magic',	192	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('As',	428	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Another Star',	508	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Saturn',	293	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Ebony Eyes'	,248 ,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('All Day Sucker',	305	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+    ('Easy Goin'' Evening (My Mama''s Call)'	,236	,'R&B',	(SELECT id from api_artist WHERE name='Stevie Wonder'),	(SELECT id from api_album WHERE name='Songs In The Key Of Life')),
+
+
+    ('All I Want',	214 , 'Folk', (SELECT id from api_artist WHERE name='Joni Mitchell'),(SELECT id from api_album WHERE name='Blue')),
+    ('My Old Man',	214, 'Folk', (SELECT id from api_artist WHERE name='Joni Mitchell'),(SELECT id from api_album WHERE name='Blue')),
+    ('Little Green',	207, 'Folk', (SELECT id from api_artist WHERE name='Joni Mitchell'),(SELECT id from api_album WHERE name='Blue')),
+    ('Carey',	182, 'Folk', (SELECT id from api_artist WHERE name='Joni Mitchell'),(SELECT id from api_album WHERE name='Blue')),
+    ('Blue',	185, 'Folk', (SELECT id from api_artist WHERE name='Joni Mitchell'),(SELECT id from api_album WHERE name='Blue')),
+    ('California',	231, 'Folk', (SELECT id from api_artist WHERE name='Joni Mitchell'),(SELECT id from api_album WHERE name='Blue')),
+    ('This Flight Tonight',	171, 'Folk', (SELECT id from api_artist WHERE name='Joni Mitchell'),(SELECT id from api_album WHERE name='Blue')),
+    ('River',	244, 'Folk', (SELECT id from api_artist WHERE name='Joni Mitchell'),(SELECT id from api_album WHERE name='Blue')),
+    ('A Case of You',	262, 'Folk', (SELECT id from api_artist WHERE name='Joni Mitchell'),(SELECT id from api_album WHERE name='Blue')),
+    ('The Last Time I Saw Richard',	255, 'Folk', (SELECT id from api_artist WHERE name='Joni Mitchell'),(SELECT id from api_album WHERE name='Blue')),
+
+    ('Village Ghetto Land',	145, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+    ('You Still Believe in Me',	154	, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+    ('That''s Not Me',	150	, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+    ('Don''t Talk (Put Your Head on My Shoulder)'	, 174, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),	
+    ('I''m Waiting for the Day',	186	, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+    ('Let''s Go Away for a While',	141	, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+    ('Sloop John B',	180	, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+    ('God Only Knows',	173	, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+    ('I Know There''s an Answer',	191	, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+    ('Here Today',	175	, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+    ('I Just Wasn''t Made for These Times',	195	, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+    ('Pet Sounds',	143	, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+    ('Caroline, No',	173	, 'Rock', (SELECT id from api_artist WHERE name='The Beach Boys'),(SELECT id from api_album WHERE name='Pet Sounds')),
+
+    ('What''s Going On'	, 233 , 'R&B' , (SELECT id from api_artist WHERE name='Marvin Gaye'),(SELECT id from api_album WHERE name='What''s Going On')),
+    ('What''s Happening Brother',	163, 'R&B' , (SELECT id from api_artist WHERE name='Marvin Gaye'),(SELECT id from api_album WHERE name='What''s Going On')),
+    ('Flyin'' High (In the Friendly Sky)',	229, 'R&B' , (SELECT id from api_artist WHERE name='Marvin Gaye'),(SELECT id from api_album WHERE name='What''s Going On')),
+    ('Save the Children',	243, 'R&B' , (SELECT id from api_artist WHERE name='Marvin Gaye'),(SELECT id from api_album WHERE name='What''s Going On')),
+    ('God Is Love',	101, 'R&B' , (SELECT id from api_artist WHERE name='Marvin Gaye'),(SELECT id from api_album WHERE name='What''s Going On')),
+    ('Mercy Mercy Me (The Ecology)',	193, 'R&B' , (SELECT id from api_artist WHERE name='Marvin Gaye'),(SELECT id from api_album WHERE name='What''s Going On')),
+    ('Right On',	452, 'R&B' , (SELECT id from api_artist WHERE name='Marvin Gaye'),(SELECT id from api_album WHERE name='What''s Going On')),
+    ('Wholy Holy',	187, 'R&B' , (SELECT id from api_artist WHERE name='Marvin Gaye'),(SELECT id from api_album WHERE name='What''s Going On')),
+    ('Inner City Blues (Make Me Wanna Holler)',	327, 'R&B' , (SELECT id from api_artist WHERE name='Marvin Gaye'),(SELECT id from api_album WHERE name='What''s Going On'));
