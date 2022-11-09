@@ -26,8 +26,16 @@ SECRET_KEY = 'django-insecure-z8o!@617vmg0w)r@k=-n(o!n&r$bik%7@7#8mh+sk()$#=^3#6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = [
+    "127.0.0.1", 
+]
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1", 
+]
+CORS_ALLOW_CREDENTIALS = False
 
 # Application definition
 
@@ -88,8 +96,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
-
-CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
