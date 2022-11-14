@@ -17,24 +17,22 @@ const AlbumLists = () => {
     }, []);
 
     if (!albumList) return null;
-
+    
     return (
-        <div key = {albumList.albums.albumURI}>
-        <Card.Group itemsPerRow={5}>
+        <Card.Group itemsPerRow={5} >
             {albumList.albums.map((album) => (
-                <Card href='#card-example-link-card'> 
-                    <Image src= {album.cover_art} wrapped ui={false} />
-                    <Card.Content>
-                        <Card.Header>{album.name}</Card.Header>
-                        <Card.Meta>
-                             <span>{album.artist}</span>
-                        </Card.Meta>
-                    </Card.Content>
-                </Card>
+                    <Card href={`/${album.albumURI}`} key = {album.albumURI}> 
+                        <Image src= {album.cover_art} wrapped ui={false} />
+                        <Card.Content>
+                            <Card.Header>{album.name}</Card.Header>
+                            <Card.Meta>
+                                <span>{album.artist}</span>
+                            </Card.Meta>
+                        </Card.Content>
+                    </Card>
                 )
             )}
         </Card.Group>
-        </div>
     )
 }
 export default AlbumLists
