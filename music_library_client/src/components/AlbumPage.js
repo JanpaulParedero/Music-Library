@@ -3,10 +3,6 @@ import { Table, Grid, GridColumn, Header, Segment, Image, Label,} from 'semantic
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
-
-
-
-
 const AlbumPage = () => {
 
     const { albumURI } = useParams();
@@ -81,7 +77,7 @@ const AlbumPage = () => {
                                 +(0|(song.duration_ms/1000)%60)).slice(-2)}
                             </Table.Cell>
                             <Table.Cell>
-                                <audio controls="controls" src= {`${song.song_preview}`} ></audio> 
+                                <audio controls="controls" src= {`${song.song_preview}`} style= {{width: '100px'}}></audio> 
                             </Table.Cell>
                         </Table.Row>
                     ))}

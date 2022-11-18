@@ -1,18 +1,28 @@
 from dataclasses import field
 from import_export import fields, resources
-from import_export.widgets import ForeignKeyWidget
-from .models import Song, Album
+from import_export.widgets import  ManyToManyWidget , ForeignKeyWidget
+from .models import  Album,  Artist, Song, Genre
 
-# These resource classes allow Django to import csv files that contain the attributes needed for a schema
+class ArtistResource(resources.ModelResource):
+    artistURI = fields.Field(attribute='artistURI', column_name='artistURI')
+    name= fields.Field(attribute='name', column_name='Artist Name')
 
-# INSERT INTO api_song (songURI, album, name, duration_ms, explicit, song_preview, track_number) VALUES (
-#   'spotify:track:098ttCNmncrO4YvqWUNMvn', 
-#   'spotify:album:2noRn2Aes5aoNVsU6iWThc',	
-#   'High Life',
-#   '201800',
-#   'FALSE'
-#   'https://p.scdn.co/mp3-preview/64de0035d909feff5e99481f4cec66dca4f75102?cid=9950ac751e34487dbbe027c4fd7f8e99'
-#   '8');
+    class Meta:
+        model = Artist
+        import_id_fields = ('artistURI',)
+        skip_unchanged = True
+        fields = '__all__'
+
+class GenreResource(resources.ModelResource):
+    id = fields.Field(attribute='pk', column_name='id')
+    genre_type = fields.Field(attribute='genre_type', column_name='genre_type')
+
+    class Meta:
+        model = Genre
+        import_id_fields = ('id',)
+        skip_unchanged = True
+        fields = ('id', 'genre_type')
+
 class SongResource(resources.ModelResource):
     songURI = fields.Field(attribute='songURI', column_name='Track URI')
     album = fields.Field(widget = ForeignKeyWidget(Album, field='albumURI'), attribute='album', column_name='Album URI')
@@ -21,24 +31,28 @@ class SongResource(resources.ModelResource):
     explicit = fields.Field(attribute='explicit', column_name= 'Explicit')
     song_preview = fields.Field(attribute='song_preview', column_name='Track Preview URL')
     track_number = fields.Field(attribute='track_number', column_name='Track Number')
-    artists = fields.Field(attribute='artists', column_name='Artist Name(s)')
+    artists = fields.Field(
+        attribute='artists', 
+        column_name='Artist Name(s)',
+        widget=ManyToManyWidget(Artist, field='name', separator=','))
+    genres = fields.Field(
+        attribute='genres', 
+        column_name='Genres',
+        widget=ManyToManyWidget(Genre, field='genre_type', separator=','))
     
     class Meta:
         model = Song
         skip_unchanged = True
         import_id_fields = ('songURI',)
-        fields = ('songURI','name', 'duration_ms', 'album', 'explicit', 'song_preview', 'track_number', 'artists')
+        fields = ('songURI','name', 'duration_ms', 'explicit', 'album', 'song_preview', 'track_number', 'artists', 'genres')
         
-# INSERT INTO api_album (albumURI, name, artist, release_date, cover_art) VALUES (
-#   'spotify:album:2noRn2Aes5aoNVsU6iWThc', 
-#   'Discovery', 
-#   'Daft Punk', 
-#   '2001-03-12', 
-#   'https://i.scdn.co/image/ab67616d0000b273b33d46dfa2635a47eebf63b2');
 class AlbumResource(resources.ModelResource):
     albumURI = fields.Field(attribute='albumURI', column_name='Album URI')
     name = fields.Field(attribute='name', column_name='Album Name')
-    artist = fields.Field(attribute ='artist', column_name='Album Artist Name(s)')
+    artists = fields.Field(
+        attribute='artists', 
+        column_name='Album Artist Name(s)',
+        widget=ManyToManyWidget(Artist, field='name', separator=','))
     release_date = fields.Field(attribute='release_date', column_name='Album Release Date')
     cover_art = fields.Field(attribute='cover_art', column_name= 'Album Image URL')
 
@@ -46,4 +60,5 @@ class AlbumResource(resources.ModelResource):
         model = Album
         skip_unchanged = True
         import_id_fields = ('albumURI',)
-        fields = ('albumURI','name', 'artist', 'release_date','cover_art')
+        fields = ('albumURI','name', 'artists', 'release_date','cover_art')
+

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Form , Input} from "semantic-ui-react";
+import { useNavigate } from "react-router-dom";
 
 const url = 'http://127.0.0.1:8000/api/register/';
 const Register = () => {
@@ -8,12 +9,14 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [first_name, setFirstname] = useState('');
     const [last_name, setLastname] = useState('');
+    let navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post(url, {username , password, first_name, last_name });
             console.log(response.data);
+            navigate("/login");
         }
         catch (err) {
             console.log(err);

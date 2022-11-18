@@ -18,11 +18,13 @@ const Navbar = () => {
         {user ? (
         <>
           <Menu.Item name='Home' href='/' content='Home'/>
-          <Menu.Item name='Playlists'  content='Playlists'/>
+          {/* <Menu.Item name='Songs' href='/songs' content='Songs'/> */}
+          <Menu.Item name='Playlists' href= '/playlists' content='Playlists'/>
         </>
         ):(
         <>
           <Menu.Item name='Home' href='/' content='Home'/>
+          {/* <Menu.Item name='Songs' href='/songs' content='Songs'/> */}
         </>
         )}
          

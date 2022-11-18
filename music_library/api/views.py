@@ -1,10 +1,10 @@
 from django.http import Http404
-from .models import Album, Playlist, Song
+from .models import Album, Song, Playlist, Genre, Artist
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .serializers import AlbumSerializer, SongSerializer, PlaylistSerializer, RegisterSerializer, UserSerializer
+from .serializers import AlbumSerializer, SongSerializer, PlaylistSerializer, RegisterSerializer, UserSerializer, GenreSerializer, ArtistSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status, generics
@@ -39,6 +39,35 @@ def getRoutes(request):
         'api/token/refresh',
     ]
     return Response(routes)
+
+class GenreView(APIView):
+
+    def get(self, request, format=None):
+        genres = Genre.objects.all()
+        serializer = GenreSerializer(genres, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = GenreSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ArtistView(APIView):
+
+    def get(self, request, format=None):
+        artists = Artist.objects.all()
+        serializer = ArtistSerializer(artists, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ArtistSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class SongView(APIView):
 
@@ -79,8 +108,6 @@ class SongDetailView(APIView):
         songs = self.get_object(pk)
         songs.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
 
 class AlbumView(APIView):
 

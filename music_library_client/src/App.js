@@ -9,6 +9,7 @@ import AlbumPage from './components/AlbumPage';
 import Register from './components/Register';
 import Login from './components/Login';
 import { AuthProvider } from './utils/AuthContext';
+import SongsPage from './components/SongsPage';
 //import PrivateRoute from './utils/PrivateRoute';
 
 
@@ -23,10 +24,11 @@ const App = () => {
         <AppContainer>
           <Navbar />
             <Routes>
-              <Route path="/" element={<AlbumLists/>} />
-              <Route path="/:albumURI" element={<AlbumPage/>} />
-              <Route path="/register" element={<Register/>}/>
-              <Route path="/login" element={<Login/>}/>
+              <Route exact path="/" element={<AlbumLists/>} />
+              <Route exact path="/:albumURI" element={<AlbumPage/>} />
+              <Route exact path="/register" element={<Register/>}/>
+              <Route exact path="/login" element={<Login/>}/>
+              <Route exact path="/songs" element={<SongsPage/>}/>
             </Routes>
         </AppContainer>
       </AuthProvider>
