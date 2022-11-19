@@ -26,7 +26,6 @@ const AlbumPage = () => {
 
     return (
     <>
-    
         <Segment placeholder color='violet'>
             <Grid columns = {2} relaxed = 'very' stackable textAlign='center'>
             <Grid.Row verticalAlign='middle'>
@@ -61,10 +60,18 @@ const AlbumPage = () => {
                                 </Label>
                             </Table.Cell>
                             <Table.Cell>
-                                <Header as = 'h4'>
-                                    { song.name }
-                                </Header>
-                                <>{song.artists}</>
+                            <Header as= 'h4'>
+                                <Header.Content>
+                                    {song.name}
+                                    <Header.Subheader>
+                                    {song.artists.map((artist, index) => (
+                                        <span key = {artist.artistURI} >
+                                            {(index ? ', ': '') + artist.name } 
+                                        </span>
+                                    ))}
+                                    </Header.Subheader>
+                                </Header.Content>
+                            </Header>
                             </Table.Cell>
                             {song.explicit === true &&
                                 <Table.Cell><Label>E</Label></Table.Cell>
@@ -77,7 +84,7 @@ const AlbumPage = () => {
                                 +(0|(song.duration_ms/1000)%60)).slice(-2)}
                             </Table.Cell>
                             <Table.Cell>
-                                <audio controls="controls" src= {`${song.song_preview}`} style= {{width: '100px'}}></audio> 
+                                <audio controls="controls" src= {`${song.song_preview}`} style= {{width: '200px'}}></audio> 
                             </Table.Cell>
                         </Table.Row>
                     ))}

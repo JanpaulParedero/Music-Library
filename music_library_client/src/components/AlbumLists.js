@@ -26,7 +26,11 @@ const AlbumLists = () => {
                         <Card.Content>
                             <Card.Header>{album.name}</Card.Header>
                             <Card.Meta>
-                                <span>{album.artist}</span>
+                            {album.artists.map((artist, index) => (
+                                    <span key = {artist.artistURI} >
+                                        {(index ? ', ': '') + artist.name } 
+                                    </span>
+                                ))}
                             </Card.Meta>
                         </Card.Content>
                     </Card>

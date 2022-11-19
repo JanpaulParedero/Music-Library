@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .serializers import AlbumSerializer, SongSerializer, PlaylistSerializer, RegisterSerializer, UserSerializer, GenreSerializer, ArtistSerializer
+from .serializers import AlbumSerializer, AlbumDetailSerializer ,SongSerializer, SongDetailSerializer, PlaylistSerializer, RegisterSerializer, UserSerializer, GenreSerializer, GenreDetailSerializer, ArtistSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status, generics
@@ -54,6 +54,20 @@ class GenreView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class GenreDetailView(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Genre.objects.get(pk=pk)
+        except Song.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        genres = self.get_object(pk)
+        serializer = GenreDetailSerializer(genres)
+        return Response(serializer.data)
+        
+
 class ArtistView(APIView):
 
     def get(self, request, format=None):
@@ -93,12 +107,12 @@ class SongDetailView(APIView):
 
     def get(self, request, pk, format=None):
         songs = self.get_object(pk)
-        serializer = SongSerializer(songs)
+        serializer = SongDetailSerializer(songs)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         songs = self.get_object(pk)
-        serializer = SongSerializer(songs, data=request.data)
+        serializer = SongDetailSerializer(songs, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -133,12 +147,12 @@ class AlbumDetailView(APIView):
 
     def get(self, request, pk, format=None):
         albums = self.get_object(pk)
-        serializer = AlbumSerializer(albums)
+        serializer = AlbumDetailSerializer(albums)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         albums = self.get_object(pk)
-        serializer = AlbumSerializer(albums, data=request.data)
+        serializer = AlbumDetailSerializer(albums, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

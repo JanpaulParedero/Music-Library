@@ -6,7 +6,6 @@ import AuthContext from '../utils/AuthContext'
 const Navbar = () => {
   
   let {user, logoutUser} = useContext(AuthContext)
-  console.log(user)
     return (
       <Menu borderless inverted>
         <Menu.Item>
@@ -18,13 +17,13 @@ const Navbar = () => {
         {user ? (
         <>
           <Menu.Item name='Home' href='/' content='Home'/>
-          {/* <Menu.Item name='Songs' href='/songs' content='Songs'/> */}
+          <Menu.Item name='Songs' href='/songs' content='Songs'/> 
           <Menu.Item name='Playlists' href= '/playlists' content='Playlists'/>
         </>
         ):(
         <>
           <Menu.Item name='Home' href='/' content='Home'/>
-          {/* <Menu.Item name='Songs' href='/songs' content='Songs'/> */}
+          <Menu.Item name='Songs' href='/songs' content='Songs'/>
         </>
         )}
          

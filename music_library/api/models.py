@@ -13,7 +13,7 @@ class Artist(models.Model):
 class Album(models.Model):
     albumURI = models.CharField(max_length = 255, primary_key = True)
     name = models.TextField()
-    artists = models.ManyToManyField(Artist)
+    artists = models.ManyToManyField(Artist, related_name='albums')
     release_date = models.DateField(null = True)
     cover_art = models.TextField(null = True)
 
@@ -35,7 +35,7 @@ class Song(models.Model):
     song_preview = models.TextField()
     track_number = models.IntegerField()
     artists = models.ManyToManyField(Artist)
-    genres = models.ManyToManyField(Genre)
+    genres = models.ManyToManyField(Genre, related_name='songs')
  
     def __str__(self):
         return self.name

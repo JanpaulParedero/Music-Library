@@ -2,47 +2,50 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Header, Image, Label, Dropdown} from "semantic-ui-react";
+import { useParams } from "react-router-dom";
 
 
-const allSongs = "http://127.0.0.1:8000/api/songs/"
-const allGenres = "http://127.0.0.1:8000/api/genres/"
+const GenresPage = () => {
+    const { genre_id } = useParams();
+    const Genre = "http://127.0.0.1:8000/api/genres/" + genre_id;
+    const allGenres = "http://127.0.0.1:8000/api/genres/"
 
-const SongsPage = () => {
-
-    const [songList, setSongList] = useState({
+    const [genreDetailList, setGenreDetailList] = useState({
+        genre:[],
         songs:[],
     });
+
     const [genreList, setGenreList] = useState({
         genreList:[],
     });
 
     useEffect(() => {
-        axios.get(allSongs).then((response) => {
+        axios.get(Genre).then((response) => {
             console.log(response.data);
-            setSongList({songs: response.data});
+            setGenreDetailList({genre: response.data,
+                                songs: response.data.songs.map(song => song)
+            });
         });
-    }, []);
-    
+    }, [Genre]);
+
     useEffect(() => {
         axios.get(allGenres).then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             setGenreList({genreList: response.data});
         });
     }, []);
 
-    if (!songList) return null;
-
     return(
     <>
-        <Dropdown text='Choose A Genre'
-            floating
-            labeled
-            button
-            icon='filter'
-            className='icon'
-            color= 'violet'>
+        <Dropdown
+        text= {genreDetailList.genre.genre_type}
+        floating
+        labeled
+        button
+        icon='filter'
+        className='icon'>
+           
             <Dropdown.Menu>
-            <Dropdown.Divider />
             <Dropdown.Header icon='tags' content='Genres' />
             <Dropdown.Menu scrolling>
                 {genreList.genreList.map((genre) => (
@@ -65,11 +68,11 @@ const SongsPage = () => {
                 </Table.Header>
 
                 <Table.Body>
-                    {songList.songs.map((song) => (
+                    {genreDetailList.songs.map((song) => (
                         <Table.Row key = { song.songURI }>
                             <Table.Cell>
                                 <Header as='h4' image>
-                                    <Image src={song.album.cover_art} rounded size='small' />
+                                    <Image src={song.album.cover_art} rounded size='medium' />
                                     <Header.Content>
                                     {song.name}
                                     <Header.Subheader>
@@ -102,4 +105,4 @@ const SongsPage = () => {
         </>
     )
 }
-export default SongsPage;
+export default GenresPage;
