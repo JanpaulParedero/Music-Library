@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "musiclibrary",
+            "database": "musiclibrary",
+            "username": "janpaulparedero",
+            "password": "Museumurban625@!"
+        }
+    ]
+}

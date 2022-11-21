@@ -14,7 +14,7 @@ export const AuthProvider = ({children}) => {
     let navigate = useNavigate();
     
 
-    let loginUser = async (e )=> { 
+    let loginUser = async ( e )=> { 
         e.preventDefault();
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/token/', 
@@ -24,7 +24,8 @@ export const AuthProvider = ({children}) => {
             if(response.status === 200){
                 setAuthTokens(response.data)
                 setUser(jwt_decode(response.data.access))
-                localStorage.setItem('authTokens', JSON.stringify(response.data))
+                localStorage.setItem('authTokens', JSON.stringify(response.data.access))
+                
                 navigate("/");
             }
             else{
@@ -36,6 +37,7 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+
     let logoutUser = () => {
         setAuthTokens(null)
         setUser(null)
@@ -46,7 +48,7 @@ export const AuthProvider = ({children}) => {
     let contextData = {
         user:user,
         loginUser:loginUser,
-        logoutUser:logoutUser
+        logoutUser:logoutUser,
     }
     return(
         <AuthContext.Provider value={contextData}>

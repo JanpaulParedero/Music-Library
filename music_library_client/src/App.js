@@ -11,6 +11,9 @@ import Login from './components/Login';
 import { AuthProvider } from './utils/AuthContext';
 import SongsPage from './components/SongsPage';
 import GenresPage from './components/GenresPage'; 
+import PlaylistPage from './components/PlaylistPage';
+import PlaylistCreate from './components/PlaylistCreate';
+import PlaylistSongs from './components/PlaylistSongs';
 //import PrivateRoute from './utils/PrivateRoute';
 
 
@@ -31,6 +34,9 @@ const App = () => {
               <Route exact path="/login" element={<Login/>}/>
               <Route exact path="/songs" element={<SongsPage/>}/> 
               <Route exact path="/songs/:genre_id" element={<GenresPage/>}/>
+              <Route exact path="/playlists" element={<PlaylistPage/>}/> 
+              <Route exact path="/playlists/create" element={<PlaylistCreate/>}/>
+              <Route exact path="/playlists/:playlist_id" element={<PlaylistSongs/>}/>
             </Routes>
         </AppContainer>
       </AuthProvider>

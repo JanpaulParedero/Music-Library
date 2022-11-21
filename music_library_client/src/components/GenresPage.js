@@ -1,14 +1,21 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import axios from "axios";
 import { Table, Header, Image, Label, Dropdown} from "semantic-ui-react";
 import { useParams } from "react-router-dom";
+import AuthContext from "../utils/AuthContext";
+import { useContext } from "react";
+
+
+import AddToPlaylist from "./AddToPlaylist";
 
 
 const GenresPage = () => {
     const { genre_id } = useParams();
     const Genre = "http://127.0.0.1:8000/api/genres/" + genre_id;
     const allGenres = "http://127.0.0.1:8000/api/genres/"
+
+    let {user} = useContext(AuthContext);
 
     const [genreDetailList, setGenreDetailList] = useState({
         genre:[],
@@ -64,6 +71,7 @@ const GenresPage = () => {
                         <Table.HeaderCell collapsing>Explicit</Table.HeaderCell>
                         <Table.HeaderCell>Duration</Table.HeaderCell>
                         <Table.HeaderCell collapsing>Preview</Table.HeaderCell>
+                        <Table.HeaderCell collapsing></Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -97,6 +105,13 @@ const GenresPage = () => {
                             </Table.Cell>
                             <Table.Cell>
                                 <audio controls="controls" src= {`${song.song_preview}`} style= {{width: '200px'}}></audio> 
+                            </Table.Cell>
+                            <Table.Cell>
+                                {user ? (
+                                    <AddToPlaylist songID={song.songURI}/>
+                                ):(
+                                    <></>
+                                )}
                             </Table.Cell>
                         </Table.Row>
                     ))}

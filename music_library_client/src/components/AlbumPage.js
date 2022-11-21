@@ -1,12 +1,15 @@
-import React from 'react'
 import { Table, Grid, GridColumn, Header, Segment, Image, Label,} from 'semantic-ui-react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import AddToPlaylist from './AddToPlaylist'
+import AuthContext from '../utils/AuthContext'
+import React, {useContext} from 'react'
 
 const AlbumPage = () => {
 
     const { albumURI } = useParams();
     const URL = "http://127.0.0.1:8000/api/albums/" + albumURI;
+    let {user} = useContext(AuthContext);
 
     const [albumDetailList, setAlbumDetailList] = React.useState({
         album:[],
@@ -48,6 +51,7 @@ const AlbumPage = () => {
                         <Table.HeaderCell collapsing>Explicit</Table.HeaderCell>
                         <Table.HeaderCell>Duration</Table.HeaderCell>
                         <Table.HeaderCell collapsing>Preview</Table.HeaderCell>
+                        <Table.HeaderCell collapsing></Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -85,6 +89,14 @@ const AlbumPage = () => {
                             </Table.Cell>
                             <Table.Cell>
                                 <audio controls="controls" src= {`${song.song_preview}`} style= {{width: '200px'}}></audio> 
+                            </Table.Cell>
+                            <Table.Cell>
+                            {user ? (
+                                <AddToPlaylist songID={song.songURI}/>
+                            ):(
+                                <></>
+                            )}
+                                
                             </Table.Cell>
                         </Table.Row>
                     ))}

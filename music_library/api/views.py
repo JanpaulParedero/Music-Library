@@ -4,10 +4,11 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .serializers import AlbumSerializer, AlbumDetailSerializer ,SongSerializer, SongDetailSerializer, PlaylistSerializer, RegisterSerializer, UserSerializer, GenreSerializer, GenreDetailSerializer, ArtistSerializer
+from .serializers import AlbumSerializer, AlbumDetailSerializer ,SongSerializer, SongDetailSerializer, PlaylistSerializer,PlaylistDetailSerializer, RegisterSerializer, UserSerializer, GenreSerializer, GenreDetailSerializer, ArtistSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status, generics
+from rest_framework.decorators import api_view, permission_classes
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -187,10 +188,10 @@ class PlaylistDetailView(APIView):
 
     def get(self, request, pk, format=None):
         Playlists = self.get_object(pk)
-        serializer = PlaylistSerializer(Playlists)
+        serializer = PlaylistDetailSerializer(Playlists)
         return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
+    def patch(self, request, pk, format=None):
         Playlist = self.get_object(pk)
         serializer = PlaylistSerializer(Playlist, data=request.data)
         if serializer.is_valid():
@@ -202,3 +203,6 @@ class PlaylistDetailView(APIView):
         Playlists = self.get_object(pk)
         Playlists.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+

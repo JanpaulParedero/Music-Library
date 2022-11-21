@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import  Album,  Artist, Song, Playlist, Genre
 from django.contrib.auth.models import User
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -51,12 +52,29 @@ class AlbumDetailSerializer(serializers.ModelSerializer):
         model = Album
         fields = ['albumURI','name', 'artists', 'release_date','cover_art', 'songs']
 
-
 class PlaylistSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(required=False)
+
     class Meta:
         model = Playlist
-        fields = '__all__'
+        fields = ['id', 'name','user','songs']
         read_only_fields = ["user"]
+
+class PlaylistDetailSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(required=False)
+    songs = SongSerializer(many=True)
+    class Meta:
+        model = Playlist
+        fields = ['id', 'name','user','songs']
+        read_only_fields = ["user"]
+        
+        
+    def validate_stock_list(self, songs):
+        existing_stock_list = []
+        if self.instance and self.instance.songs:
+            # Patch or Put request
+            existing_stock_list = self.instance.songs
+        return existing_stock_list + songs
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
