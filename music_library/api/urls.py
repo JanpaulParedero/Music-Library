@@ -1,6 +1,6 @@
 from django.urls import path
 from .import views
-from .views import AlbumDetailView, AlbumView, MyTokenObtainPairView, PlaylistDetailView, PlaylistView, RegisterView, SongDetailView, SongView, GenreView, ArtistView, GenreDetailView
+from .views import AlbumDetailView, AlbumView, MyTokenObtainPairView, PlaylistDetailView, PlaylistView,PlaylistDetailSimpleView,RegisterView, SongDetailView, SongView, GenreView, ArtistView, GenreDetailView
 from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework.urlpatterns import format_suffix_patterns
 app_name ='api'
@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.getRoutes),
     path('playlists/', PlaylistView.as_view()),
     path('playlists/<int:pk>/', PlaylistDetailView.as_view()),
+    path('playlists/<int:pk>/simple/', PlaylistDetailSimpleView.as_view()),
     path('songs/', SongView.as_view(), name="songsApi"),
     path('songs/<str:pk>/', SongDetailView.as_view()),
     path('albums/', AlbumView.as_view(), name="albumApi"),

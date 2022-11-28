@@ -1,8 +1,8 @@
 import { Table, Grid, GridColumn, Header, Segment, Image, Label,} from 'semantic-ui-react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import AddToPlaylist from './AddToPlaylist'
-import AuthContext from '../utils/AuthContext'
+import AddToPlaylist from '../Playlist/AddToPlaylist'
+import AuthContext from '../../utils/AuthContext'
 import React, {useContext} from 'react'
 
 const AlbumPage = () => {
@@ -14,6 +14,7 @@ const AlbumPage = () => {
     const [albumDetailList, setAlbumDetailList] = React.useState({
         album:[],
         songs:[],
+        artists:[]
     });
 
     React.useEffect(() => {
@@ -21,6 +22,7 @@ const AlbumPage = () => {
             console.log(response.data);
             setAlbumDetailList({album: response.data,
                                 songs: response.data.songs.map(song => song),
+                                artists: response.data.artists.map(artist => artist),
             });
         });
     }, [URL]);
@@ -33,12 +35,18 @@ const AlbumPage = () => {
             <Grid columns = {2} relaxed = 'very' stackable textAlign='center'>
             <Grid.Row verticalAlign='middle'>
                 <Grid.Column> 
-                    <Image src={albumDetailList.album.cover_art} size='medium' centered rounded/>
+                    <Image src={albumDetailList.album.cover_art} size='medium' centered = {true} rounded/>
                 </Grid.Column>
                 <GridColumn>
-                    <Header as = 'h1' centered> {albumDetailList.album.name} </Header>
-                    <Header size = 'medium' centered> {albumDetailList.album.artist} </Header>
-                    <Header size = 'small' centered> {albumDetailList.album.release_date} </Header>
+                    <Header as = 'h1' centered = {true}> {albumDetailList.album.name} </Header>
+                    <Header size = 'medium' centered = {true}>
+                        {albumDetailList.artists.map((artist, index) => (
+                            <span key = {artist.artistURI} >
+                                {(index ? ', ': '') + artist.name }
+                            </span>
+                        ))}
+                    </Header>
+                    <Header size = 'small' centered = {true}> {albumDetailList.album.release_date} </Header>
                 </GridColumn>
             </Grid.Row>
             </Grid>

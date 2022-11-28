@@ -3,11 +3,11 @@ import { useState, useEffect} from "react";
 import axios from "axios";
 import { Table, Header, Image, Label, Dropdown} from "semantic-ui-react";
 import { useParams } from "react-router-dom";
-import AuthContext from "../utils/AuthContext";
+import AuthContext from "../../utils/AuthContext";
 import { useContext } from "react";
 
 
-import AddToPlaylist from "./AddToPlaylist";
+import AddToPlaylist from "../Playlist/AddToPlaylist";
 
 
 const GenresPage = () => {
@@ -37,7 +37,6 @@ const GenresPage = () => {
 
     useEffect(() => {
         axios.get(allGenres).then((response) => {
-            //console.log(response.data);
             setGenreList({genreList: response.data});
         });
     }, []);

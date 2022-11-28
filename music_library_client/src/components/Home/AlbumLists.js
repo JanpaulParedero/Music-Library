@@ -19,7 +19,7 @@ const AlbumLists = () => {
     if (!albumList) return null;
     
     return (
-        <Card.Group centered itemsPerRow={5} >
+        <Card.Group centered = {true} itemsPerRow={5} >
             {albumList.albums.map((album) => (
                     <Card fluid color='violet' href={`/${album.albumURI}`} key = {album.albumURI}> 
                         <Image src= {album.cover_art} wrapped ui={false} />

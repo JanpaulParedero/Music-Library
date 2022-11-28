@@ -12,9 +12,10 @@ export const AuthProvider = ({children}) => {
     let [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     let [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
     let navigate = useNavigate();
-    
 
-    let loginUser = async ( e )=> { 
+    const [flag, setFlag] = useState(false)
+
+    let loginUser = async ( e ) => { 
         e.preventDefault();
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/token/', 
@@ -23,13 +24,15 @@ export const AuthProvider = ({children}) => {
             console.log (response.data.access)
             if(response.status === 200){
                 setAuthTokens(response.data)
+                console.log(authTokens)
                 setUser(jwt_decode(response.data.access))
                 localStorage.setItem('authTokens', JSON.stringify(response.data.access))
-                
+                setFlag(false)
                 navigate("/");
             }
-            else{
-                alert("Something ain't right!")
+            else if (response.status === 400 || response.status === 401){
+                alert("Wrong username or password");
+                setFlag(true)
             }
         }
         catch (err) {
@@ -49,6 +52,7 @@ export const AuthProvider = ({children}) => {
         user:user,
         loginUser:loginUser,
         logoutUser:logoutUser,
+        flag:flag,
     }
     return(
         <AuthContext.Provider value={contextData}>

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { Menu, Button, Icon } from 'semantic-ui-react'
-import AuthContext from '../utils/AuthContext'
-
+import AuthContext from '../../utils/AuthContext'
 
 const Navbar = () => {
   

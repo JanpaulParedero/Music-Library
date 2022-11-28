@@ -59,6 +59,7 @@ class PlaylistSerializer(serializers.ModelSerializer):
         model = Playlist
         fields = ['id', 'name','user','songs']
         read_only_fields = ["user"]
+        depth = 0
 
 class PlaylistDetailSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=False)

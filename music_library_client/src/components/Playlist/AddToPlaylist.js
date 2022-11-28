@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Dropdown } from "semantic-ui-react";
-import jwtDecode from "jwt-decode";
 
 const AddToPlaylist = ({songID}) => {
 
@@ -13,21 +12,18 @@ const AddToPlaylist = ({songID}) => {
     });
 
     const accessToken = JSON.parse(localStorage.getItem('authTokens'));
-    console.log(accessToken);
-    const user = jwtDecode(accessToken)
-    console.log(user.user_id);
+    
 
     useEffect(() => {
         axios.get(allPlaylists,
             { headers:{'Authorization': `Bearer ${accessToken}`}})
             .then((response) => {
-            console.log(response.data);
             setPlaylist({ playlist: response.data });
         });
     }, [accessToken]);
 
     let addSongToPlaylist = ( playlistID, songID) => {
-        const url = 'http://127.0.0.1:8000/api/playlists/' + playlistID +'/';
+        const url = 'http://127.0.0.1:8000/api/playlists/' + playlistID +'/simple/';
         console.log(url);
         axios.get(url, { headers:{'Authorization': `Bearer ${accessToken}`}})
         .then((response) => {
@@ -55,7 +51,7 @@ const AddToPlaylist = ({songID}) => {
             className='icon'
         >
             <Dropdown.Menu>
-            <Dropdown.Header  content='Playlists' />
+            <Dropdown.Header content='Playlists' />
             <Dropdown.Divider />
             {playlist.playlist.map((playlist) => (
                 <Dropdown.Item key={playlist.id} onClick={() => addSongToPlaylist(playlist.id, songID, playlist.name)}>

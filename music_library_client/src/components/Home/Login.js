@@ -1,10 +1,9 @@
 import { useContext } from "react";
 import { Form , Input} from "semantic-ui-react";
-import AuthContext from "../utils/AuthContext";
+import AuthContext from '../../utils/AuthContext'
 
 const Login = () => {
     let {loginUser} = useContext(AuthContext)
-   
     return(
             <Form onSubmit={loginUser}>
                 <Form.Field 
@@ -19,6 +18,7 @@ const Login = () => {
                     icon = "lock"
                     className = "required"
                     label="Password"
+                    type="password"
                     control={Input}
                     placeholder="Password" 
                     name="password"

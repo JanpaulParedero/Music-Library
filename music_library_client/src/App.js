@@ -1,20 +1,19 @@
 import './App.css';
 import React from "react";
-import Navbar from './components/Navbar';
-import AlbumLists from './components/AlbumLists';
+import Navbar from './components/Home/Navbar';
+import AlbumLists from './components/Home/AlbumLists';
 import { Container } from "semantic-ui-react"
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import AlbumPage from './components/AlbumPage';
-import Register from './components/Register';
-import Login from './components/Login';
+import AlbumPage from './components/Home/AlbumPage';
+import Register from './components/Home/Register';
+import Login from './components/Home/Login';
 import { AuthProvider } from './utils/AuthContext';
-import SongsPage from './components/SongsPage';
-import GenresPage from './components/GenresPage'; 
-import PlaylistPage from './components/PlaylistPage';
-import PlaylistCreate from './components/PlaylistCreate';
-import PlaylistSongs from './components/PlaylistSongs';
-//import PrivateRoute from './utils/PrivateRoute';
+import SongsPage from './components/Songs/SongsPage';
+import GenresPage from './components/Songs/GenresPage'; 
+import PlaylistPage from './components/Playlist/PlaylistPage';
+import PlaylistCreate from './components/Playlist/PlaylistCreate';
+import PlaylistSongs from './components/Playlist/PlaylistSongs';
 
 
 const AppContainer = styled(Container)`
