@@ -1,7 +1,6 @@
 from django.http import Http404
 from .models import Album, Song, Playlist, Genre, Artist
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .serializers import AlbumSerializer, AlbumDetailSerializer ,SongSerializer, SongDetailSerializer, PlaylistSerializer,PlaylistDetailSerializer, RegisterSerializer, UserSerializer, GenreSerializer, GenreDetailSerializer, ArtistSerializer
@@ -44,7 +43,8 @@ def getRoutes(request):
 class GenreView(APIView):
 
     def get(self, request, format=None):
-        genres = Genre.objects.all()
+        #genres = Genre.objects.all()
+        genres = Genre.objects.raw('SELECT * FROM public.api_genre ORDER BY id ASC ')
         serializer = GenreSerializer(genres, many=True)
         return Response(serializer.data)
 
@@ -54,6 +54,8 @@ class GenreView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class GenreDetailView(APIView):
 
@@ -72,7 +74,8 @@ class GenreDetailView(APIView):
 class ArtistView(APIView):
 
     def get(self, request, format=None):
-        artists = Artist.objects.all()
+        #artists = Artist.objects.all()
+        artists = Artist.objects.raw('SELECT * FROM public.api_artist')
         serializer = ArtistSerializer(artists, many=True)
         return Response(serializer.data)
 
@@ -87,7 +90,8 @@ class ArtistView(APIView):
 class SongView(APIView):
 
     def get(self, request, format=None):
-        songs = Song.objects.all()
+        #songs = Song.objects.all()
+        songs = Song.objects.raw('SELECT * FROM public.api_song')
         serializer = SongSerializer(songs, many=True)
         return Response(serializer.data)
 
@@ -128,6 +132,7 @@ class AlbumView(APIView):
 
     def get(self, request, format=None):
         albums = Album.objects.all()
+        albums = Album.objects.raw('SELECT * FROM public.api_album')
         serializer = AlbumSerializer(albums, many=True)
         return Response(serializer.data)
 
@@ -189,6 +194,32 @@ class PlaylistDetailView(APIView):
     def get(self, request, pk, format=None):
         Playlists = self.get_object(pk)
         serializer = PlaylistDetailSerializer(Playlists)
+        return Response(serializer.data)
+
+    def patch(self, request, pk, format=None):
+        Playlist = self.get_object(pk)
+        serializer = PlaylistSerializer(Playlist, data=request.data)
+        if serializer.is_valid():
+            serializer.save(user = self.request.user)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        Playlists = self.get_object(pk)
+        Playlists.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class PlaylistDetailSimpleView(APIView):
+    permission_classes= [IsAuthenticated]
+    def get_object(self, pk):
+        try:
+            return Playlist.objects.get(pk=pk, user = self.request.user)
+        except Playlist.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        Playlists = self.get_object(pk)
+        serializer = PlaylistSerializer(Playlists)
         return Response(serializer.data)
 
     def patch(self, request, pk, format=None):
